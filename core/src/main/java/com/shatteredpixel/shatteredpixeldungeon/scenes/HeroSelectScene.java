@@ -139,7 +139,7 @@ public class HeroSelectScene extends PixelScene {
 				ActionIndicator.action = null;
 				InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
 
-				Game.switchScene( InterlevelScene.class );
+				Game.switchScene( StoryScene.class );
 			}
 		};
 		startBtn.icon(Icons.get(Icons.ENTER));

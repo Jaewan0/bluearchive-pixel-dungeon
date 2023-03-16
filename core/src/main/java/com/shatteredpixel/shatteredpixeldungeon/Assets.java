@@ -299,4 +299,14 @@ public class Assets {
 		public static final String SPIRIT_HAWK= "sprites/spirit_hawk.png";
 		public static final String RED_SENTRY= "sprites/red_sentry.png";
 	}
+
+	public static class Background {
+		public static final String ARIUS_BASILICA = "background/BG_AriusBasilica.jpg";
+		public static final String ARIUS_CAMPUS = "background/BG_AriusCampus.jpg";
+		public static final String TRINITY_TERRACE = "background/BG_TrinityTerrace.jpg";
+	}
+
+	public static class Character {
+		public static final String NAGISA = "character/nagisa/Nagisa_Portrait.jpg";
+	}
 }
