@@ -116,7 +116,7 @@ public class TitleScene extends PixelScene {
 					GamesInProgress.curSlot = 1;
 					ShatteredPixelDungeon.switchScene(HeroSelectScene.class);
 				} else {
-					ShatteredPixelDungeon.switchNoFade( StartScene.class );
+					ShatteredPixelDungeon.switchScene( StoryScene.class );
 				}
 			}
 			

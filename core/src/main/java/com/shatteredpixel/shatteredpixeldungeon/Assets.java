@@ -96,6 +96,8 @@ public class Assets {
 		public static final String HERO_ICONS       = "interfaces/hero_icons.png";
 
 		public static final String RADIAL_MENU      = "interfaces/radial_menu.png";
+		public static final String CHOICE_IMAGE = "interfaces/choicebtn.png";
+		public static final String STORY_BANNER = "interfaces/storybanner.png";
 	}
 
 	//these points to resource bundles, not raw asset files
@@ -134,6 +136,8 @@ public class Assets {
 		public static final String HALLS_1      = "music/halls_1.ogg";
 		public static final String HALLS_2      = "music/halls_2.ogg";
 		public static final String HALLS_BOSS   = "music/halls_boss.ogg";
+		public static final String MX_AD = "music/Theme-16_Mitsukiyo-10_MX-Adventure-_-1dB_.ogg";
+		public static final String PAP = "music/Theme-28_KARUT-11_Plug-and-Play-_-1dB_.ogg";
 	}
 
 	public static class Sounds {

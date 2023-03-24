@@ -1,16 +1,13 @@
 package com.shatteredpixel.shatteredpixeldungeon.scenes;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.scenes.scene2d.actions.AlphaAction;
 import com.shatteredpixel.shatteredpixeldungeon.*;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Journal;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
-import com.shatteredpixel.shatteredpixeldungeon.ui.ExitButton;
-import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
-import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
-import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
-import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
-import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
+import com.shatteredpixel.shatteredpixeldungeon.ui.*;
+import com.shatteredpixel.shatteredpixeldungeon.ui.Button;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTextInput;
 import com.shatteredpixel.shatteredpixeldungeon.utils.DungeonSeed;
@@ -20,18 +17,17 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.WndKeyBindings;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndMessage;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.input.PointerEvent;
-import com.watabou.noosa.Camera;
-import com.watabou.noosa.ColorBlock;
-import com.watabou.noosa.Game;
+import com.watabou.noosa.*;
 import com.watabou.noosa.Image;
-import com.watabou.noosa.NinePatch;
-import com.watabou.noosa.PointerArea;
+import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.tweeners.Tweener;
 import com.watabou.noosa.ui.Component;
 import com.watabou.utils.DeviceCompat;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.PointF;
 
+import javax.swing.*;
+import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,16 +36,24 @@ import java.util.TimeZone;
 
 public class StoryScene extends PixelScene{
     private Image background;
-    private Image fadeLeft, fadeRight;
+    private Image banner;
     private IconButton btnFade; //only on landscape
     private Image nagisa;
-    private StyledButton textBtn;
+    private Button choiceBtn;
+    private Button textBtn;
 
     @Override
     public void create() {
         super.create();
+        Music.INSTANCE.play(Assets.Music.MX_AD, true);
         Badges.loadGlobal();
         Journal.loadGlobal();
+        banner = new Image(Assets.Interfaces.STORY_BANNER);
+        banner.scale.set(Camera.main.width/banner.width, Camera.main.height/banner.height);
+        banner.x = (Camera.main.width - banner.width())/2f;
+        banner.y = (Camera.main.height - banner.height())/2f;
+        PixelScene.align(banner);
+        add(banner);
 
 
         background = new Image(Assets.Background.TRINITY_TERRACE);
@@ -68,13 +72,16 @@ public class StoryScene extends PixelScene{
         nagisa.y = (Camera.main.height - nagisa.height() + 50)/2f;
         PixelScene.align(nagisa);
         add(nagisa);
-
-        textBtn = new StyledButton(Chrome.Type.GREY_BUTTON_TR, ""){
+        StyledButton btnPlay = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "") {
             @Override
             protected void onClick() {
                 super.onClick();
-
+                ShatteredPixelDungeon.switchScene(HeroSelectScene.class);
             }
         };
+        btnPlay.setPos(Camera.main.width / 2f, Camera.main.height / 2f);
+        btnPlay.text("선생님 잘오셨어요");
+        add(btnPlay);
+
     }
 }
