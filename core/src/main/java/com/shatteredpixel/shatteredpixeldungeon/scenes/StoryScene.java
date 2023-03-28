@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.journal.Journal;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.*;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Button;
+import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTextInput;
 import com.shatteredpixel.shatteredpixeldungeon.utils.DungeonSeed;
@@ -22,6 +23,7 @@ import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.tweeners.Tweener;
 import com.watabou.noosa.ui.Component;
+import com.watabou.utils.ColorMath;
 import com.watabou.utils.DeviceCompat;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.PointF;
@@ -78,28 +80,30 @@ public class StoryScene extends PixelScene{
         };
         choiceBtn1.setPos(Camera.main.width / 2f - 100, Camera.main.height / 2f - 300);
         choiceBtn1.text("나기사가 불러서 왔어");
+        choiceBtn1.textColor(Window.TEXT_COLOR);
         add(choiceBtn1);
 
         StyledButton choiceBtn2 = new StyledButton(Chrome.Type.CHOICE_BUTTON,"") {
             @Override
             protected void onClick() {
-                nagisa.visible = false;
+                nagisa.visible = true;
             }
 
         };
         choiceBtn2.setPos(Camera.main.width / 2f - 100, Camera.main.height / 2f - 300);
         choiceBtn2.text("무슨 일이야 나기사?");
+        choiceBtn2.textColor(Window.TEXT_COLOR);
         add(choiceBtn2);
 
         if (landscape()) {
-            choiceBtn1.setRect(Camera.main.width / 2f - 100, Camera.main.height / 2f, 200, 10);
+            choiceBtn1.setRect(Camera.main.width / 2f - 100, Camera.main.height / 2f - 30, 200, 17);
             align(choiceBtn1);
-            choiceBtn2.setRect(choiceBtn1.left(), choiceBtn1.bottom(), choiceBtn1.width(), choiceBtn1.height());
+            choiceBtn2.setRect(choiceBtn1.left(), Camera.main.height / 2f, choiceBtn1.width(), choiceBtn1.height());
         }
         else {
-            choiceBtn1.setRect(Camera.main.width / 2f - 100, Camera.main.height / 2f, 200, 10);
+            choiceBtn1.setRect(Camera.main.width / 2f - 100, Camera.main.height / 2f - 30, 200, 17);
             align(choiceBtn1);
-            choiceBtn2.setRect(choiceBtn1.left(), choiceBtn1.bottom(), choiceBtn1.width(), choiceBtn1.height());
+            choiceBtn2.setRect(choiceBtn1.left(), Camera.main.height / 2f, choiceBtn1.width(), choiceBtn1.height());
         }
 
     }
