@@ -92,12 +92,12 @@ public class StoryScene extends PixelScene{
         add(choiceBtn2);
 
         if (landscape()) {
-            choiceBtn1.setRect(Camera.main.width / 2f - 100, Camera.main.height / 2f - 100, 200, 10);
+            choiceBtn1.setRect(Camera.main.width / 2f - 100, Camera.main.height / 2f, 200, 10);
             align(choiceBtn1);
             choiceBtn2.setRect(choiceBtn1.left(), choiceBtn1.bottom(), choiceBtn1.width(), choiceBtn1.height());
         }
         else {
-            choiceBtn1.setRect(Camera.main.width / 2f - 100, Camera.main.height / 2f - 100, 200, 10);
+            choiceBtn1.setRect(Camera.main.width / 2f - 100, Camera.main.height / 2f, 200, 10);
             align(choiceBtn1);
             choiceBtn2.setRect(choiceBtn1.left(), choiceBtn1.bottom(), choiceBtn1.width(), choiceBtn1.height());
         }
