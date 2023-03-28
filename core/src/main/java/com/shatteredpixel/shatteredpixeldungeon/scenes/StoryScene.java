@@ -73,32 +73,31 @@ public class StoryScene extends PixelScene{
         StyledButton choiceBtn1 = new StyledButton(Chrome.Type.CHOICE_BUTTON, "") {
             @Override
             protected void onClick() {
-                super.onClick();
                 nagisa.visible = false;
             }
         };
-        choiceBtn1.setPos(Camera.main.width / 2f - 100, Camera.main.height / 2f - 100);
+        choiceBtn1.setPos(Camera.main.width / 2f - 100, Camera.main.height / 2f - 300);
         choiceBtn1.text("나기사가 불러서 왔어");
         add(choiceBtn1);
 
         StyledButton choiceBtn2 = new StyledButton(Chrome.Type.CHOICE_BUTTON,"") {
             @Override
             protected void onClick() {
-                nagisa.visible = true;
+                nagisa.visible = false;
             }
 
         };
-        choiceBtn2.setPos(Camera.main.width / 2f - 100, Camera.main.height / 2f + 100);
+        choiceBtn2.setPos(Camera.main.width / 2f - 100, Camera.main.height / 2f - 300);
         choiceBtn2.text("무슨 일이야 나기사?");
         add(choiceBtn2);
 
         if (landscape()) {
-            choiceBtn1.setRect(Camera.main.width / 2f - 100, Camera.main.height / 2f - 100, 100, 20);
+            choiceBtn1.setRect(Camera.main.width / 2f - 100, Camera.main.height / 2f - 100, 200, 10);
             align(choiceBtn1);
             choiceBtn2.setRect(choiceBtn1.left(), choiceBtn1.bottom(), choiceBtn1.width(), choiceBtn1.height());
         }
         else {
-            choiceBtn1.setRect(Camera.main.width / 2f - 100, Camera.main.height / 2f - 100, 100, 20);
+            choiceBtn1.setRect(Camera.main.width / 2f - 100, Camera.main.height / 2f - 100, 200, 10);
             align(choiceBtn1);
             choiceBtn2.setRect(choiceBtn1.left(), choiceBtn1.bottom(), choiceBtn1.width(), choiceBtn1.height());
         }
