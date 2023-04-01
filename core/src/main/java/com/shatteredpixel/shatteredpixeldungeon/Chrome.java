@@ -41,12 +41,15 @@ public class Chrome {
 		TAB_SELECTED,
 		TAB_UNSELECTED,
 		BLANK,
-		CHOICE_BUTTON;
+		CHOICE_BUTTON,
+		TEXT_BUTTON;
+
 	}
 	
 	public static NinePatch get( Type type ) {
 		String Asset = Assets.Interfaces.CHROME;
 		String Btn = Assets.Interfaces.CHOICE_IMAGE;
+		String Text = Assets.Interfaces.TEXT_IMAGE;
 		switch (type) {
 			case WINDOW:
 				return new NinePatch( Asset, 0, 0, 20, 20, 6 );
@@ -79,6 +82,8 @@ public class Chrome {
 				return new NinePatch( Asset, 45, 0, 1, 1, 0, 0, 0, 0 );
 			case CHOICE_BUTTON:
 				return new NinePatch(Btn,0, 0, 0, 0, 0, 0, 0, 0);
+			case TEXT_BUTTON:
+				return new NinePatch(Text,0, 0, 0, 0, 0, 0, 0, 0);
 			default:
 				return null;
 		}

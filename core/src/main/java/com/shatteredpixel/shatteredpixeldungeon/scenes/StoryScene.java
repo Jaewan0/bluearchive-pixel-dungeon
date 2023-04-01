@@ -30,6 +30,7 @@ import com.watabou.utils.PointF;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,8 +40,17 @@ import java.util.TimeZone;
 public class StoryScene extends PixelScene{
     private Image background;
     private Image banner;
+    private Image fadeLeft, fadeRight;
     private IconButton btnFade; //only on landscape
+    private StyledButton choiceBtn1, choiceBtn2;
+    private StyledButton textBtn;
+    private IconButton btnExit;
     private Image nagisa;
+    private RenderedTextBlock text;
+    private RenderedTextBlock charaName;
+    private RenderedTextBlock charaDesc;
+    private float uiAlpha;
+
 
     @Override
     public void create() {
@@ -54,9 +64,21 @@ public class StoryScene extends PixelScene{
         banner.y = (Camera.main.height - banner.height())/2f;
         PixelScene.align(banner);
         add(banner);
+        banner.visible = banner.active = false;
 
 
-        background = new Image(Assets.Background.TRINITY_TERRACE);
+        background = new Image(Assets.Background.TRINITY_TERRACE) {
+            public void update() {
+                if (choiceBtn1.visible) {
+                    if (rm > 1f) {
+                        rm -= Game.elapsed;
+                        gm = bm = rm;
+                    } else {
+                        rm = gm = bm = 1;
+                    }
+                }
+            }
+        };
 
         background.scale.set(Camera.main.width/background.width, Camera.main.height/background.height);
 
@@ -64,7 +86,6 @@ public class StoryScene extends PixelScene{
         background.y = (Camera.main.height - background.height())/2f;
         PixelScene.align(background);
         add(background);
-
         nagisa = new Image(Assets.Character.NAGISA);
         nagisa.scale.set(Camera.main.height/nagisa.height);
 
@@ -72,21 +93,22 @@ public class StoryScene extends PixelScene{
         nagisa.y = (Camera.main.height - nagisa.height() + 50)/2f;
         PixelScene.align(nagisa);
         add(nagisa);
-        StyledButton choiceBtn1 = new StyledButton(Chrome.Type.CHOICE_BUTTON, "") {
+        choiceBtn1 = new StyledButton(Chrome.Type.CHOICE_BUTTON, "") {
             @Override
             protected void onClick() {
-                nagisa.visible = false;
+
             }
         };
         choiceBtn1.setPos(Camera.main.width / 2f - 100, Camera.main.height / 2f - 300);
         choiceBtn1.text("나기사가 불러서 왔어");
         choiceBtn1.textColor(Window.TEXT_COLOR);
         add(choiceBtn1);
+        choiceBtn1.visible = false;
 
-        StyledButton choiceBtn2 = new StyledButton(Chrome.Type.CHOICE_BUTTON,"") {
+        choiceBtn2 = new StyledButton(Chrome.Type.CHOICE_BUTTON,"") {
             @Override
             protected void onClick() {
-                nagisa.visible = true;
+                ShatteredPixelDungeon.switchScene(HeroSelectScene.class);
             }
 
         };
@@ -94,17 +116,78 @@ public class StoryScene extends PixelScene{
         choiceBtn2.text("무슨 일이야 나기사?");
         choiceBtn2.textColor(Window.TEXT_COLOR);
         add(choiceBtn2);
+        choiceBtn2.visible = false;
+
+        textBtn = new StyledButton(Chrome.Type.TEXT_BUTTON, "") {
+            @Override
+            protected void onClick() {
+                super.onClick();
+                textBtn.alpha(0.5f);
+                choiceBtn1.visible = true;
+                choiceBtn2.visible = true;
+            }
+        };
+        textBtn.setPos(Camera.main.width / 2f - 100, Camera.main.height / 2f - 300);
+        textBtn.alpha(0.5f);
+        add(textBtn);
+        fadeLeft = new Image(TextureCache.createGradient(0xFF000000, 0xFF000000, 0x00000000));
+        fadeLeft.x = textBtn.width()-2;
+        fadeLeft.scale.set(3, textBtn.height());
+        add(fadeLeft);
+
+        fadeRight = new Image(fadeLeft);
+        fadeRight.y = 50 + textBtn.height();
+        fadeRight.angle = 180;
+        add(fadeRight);
+
+        text = renderTextBlock("어서오세요, 선생님", 8);
+        text.setPos(Camera.main.width / 2f - 157, Camera.main.height / 2f + 55);
+        add(text);
+
+        charaName = renderTextBlock("나기사", 9);
+        charaName.setPos(Camera.main.width / 2f - 150, Camera.main.height / 2f + 40);
+        add(charaName);
+        charaDesc = renderTextBlock("티파티", 7);
+        charaDesc.setPos(Camera.main.width / 2f - 120, Camera.main.height / 2f + 42);
+        add(charaDesc);
 
         if (landscape()) {
             choiceBtn1.setRect(Camera.main.width / 2f - 100, Camera.main.height / 2f - 30, 200, 17);
             align(choiceBtn1);
             choiceBtn2.setRect(choiceBtn1.left(), Camera.main.height / 2f, choiceBtn1.width(), choiceBtn1.height());
+            textBtn.setRect(Camera.main.width / 2f - 300, Camera.main.height / 2f + 35, background.width, 70);
         }
         else {
             choiceBtn1.setRect(Camera.main.width / 2f - 100, Camera.main.height / 2f - 30, 200, 17);
             align(choiceBtn1);
             choiceBtn2.setRect(choiceBtn1.left(), Camera.main.height / 2f, choiceBtn1.width(), choiceBtn1.height());
+            textBtn.setRect(Camera.main.width / 2f - 300, Camera.main.height / 2f + 35, background.width,70);
         }
+        btnExit = new ExitButton();
+        btnExit.setPos( Camera.main.width - btnExit.width(), 0 );
+        add( btnExit );
+        btnExit.visible = btnExit.active = !SPDSettings.intro();
 
+        fadeIn();
+
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        btnExit.visible = btnExit.active = !SPDSettings.intro();
+    }
+
+    private void updateFade() {
+        float alpha = GameMath.gate(0f, uiAlpha, 1f);
+        choiceBtn1.enable(alpha != 0);
+        choiceBtn1.alpha(alpha);
+    }
+    protected void onBackPressed() {
+        if (btnExit.active){
+            ShatteredPixelDungeon.switchScene(TitleScene.class);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

@@ -98,6 +98,7 @@ public class Assets {
 		public static final String RADIAL_MENU      = "interfaces/radial_menu.png";
 		public static final String CHOICE_IMAGE = "interfaces/choicebtn.png";
 		public static final String STORY_BANNER = "interfaces/storybanner.png";
+		public static final String TEXT_IMAGE = "interfaces/textbtn.png";
 	}
 
 	//these points to resource bundles, not raw asset files
