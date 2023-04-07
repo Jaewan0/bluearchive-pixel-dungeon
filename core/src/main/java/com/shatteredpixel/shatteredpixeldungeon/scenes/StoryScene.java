@@ -40,7 +40,7 @@ import java.util.TimeZone;
 public class StoryScene extends PixelScene{
     private Image background;
     private Image banner;
-    private Image fadeLeft, fadeRight;
+    private Image eden;
     private IconButton btnFade; //only on landscape
     private StyledButton choiceBtn1, choiceBtn2;
     private StyledButton textBtn;
@@ -50,6 +50,7 @@ public class StoryScene extends PixelScene{
     private RenderedTextBlock charaName;
     private RenderedTextBlock charaDesc;
     private float uiAlpha;
+    private int check = 0;
 
 
     @Override
@@ -96,7 +97,38 @@ public class StoryScene extends PixelScene{
         choiceBtn1 = new StyledButton(Chrome.Type.CHOICE_BUTTON, "") {
             @Override
             protected void onClick() {
-
+                choiceBtn1.visible = false;
+                choiceBtn2.visible = false;
+                if (check == 0) {
+                    StoryScene.this.text.text("후훗. 빠르게 용건만 끝내는 것도 좋지만\n" +
+                            "가끔은 애프터눈 티를 하면서 이야기를 나누는건 어떠신가요?");
+                }
+                else if (check == 1) {
+                    StoryScene.this.text.text("어떤 음료로 드릴까요?");
+                }
+                else if (check == 2) {
+                    StoryScene.this.text.text("바로 본론으로 들어가서...\n" +
+                            "저번 사건 이후로 꽤 많은 생각이 들었습니다.");
+                    Music.INSTANCE.play(Assets.Music.THEME_105, true);
+                }
+                else if (check == 13) {
+                    Music.INSTANCE.play(Assets.Music.MX_AD, true);
+                    StoryScene.this.text.text("그럼요. 걱정해주셔서 감사합니다.\n" +
+                            "그래서, 선생님께 부탁드리고 싶은 일이 있습니다. 바로 트리니티의 지하 카타콤에 대한 조사를.");
+                }
+                else if (check == 14) {
+                    StoryScene.this.text.text("네. 트리니티 지하에 있지만 저희 역시 그 실상을 거의 모르고\n" +
+                            "앞으로 카타콤이 어떤 식으로 이용될지 모르는 일이니까요.");
+                }
+                else if (check == 15) {
+                    StoryScene.this.text.text("선생님께서 좋아해주신다니 감사합니다.\n" +
+                            "그럼, 선생님도 동의하신 걸로 알고 카타콤 정찰을 의뢰하겠습니다.\n" +
+                            "같이 함께 할 학생으로는…");
+                }
+                else if (check == 16) {
+                    ShatteredPixelDungeon.switchScene(HeroSelectScene.class);
+                }
+                check++;
             }
         };
         choiceBtn1.setPos(Camera.main.width / 2f - 100, Camera.main.height / 2f - 300);
@@ -108,7 +140,19 @@ public class StoryScene extends PixelScene{
         choiceBtn2 = new StyledButton(Chrome.Type.CHOICE_BUTTON,"") {
             @Override
             protected void onClick() {
-                ShatteredPixelDungeon.switchScene(HeroSelectScene.class);
+                choiceBtn1.visible = false;
+                choiceBtn2.visible = false;
+                if (check == 0) {
+                    StoryScene.this.text.text("후훗. 빠르게 용건만 끝내는 것도 좋지만\n" +
+                            "가끔은 홍차라도 마시면서 이야기를 나누는건 어떠신가요? 이야기가 꽤 길어질거 같으니까요.");
+                } else if (check == 15) {
+                    StoryScene.this.text.text("선생님께서 좋아해주신다니 감사합니다.\n" +
+                            "그럼, 선생님도 동의하신 걸로 알고 카타콤 정찰을 의뢰하겠습니다.\n" +
+                            "같이 함께 할 학생으로는…");
+                } else if (check == 16) {
+                    ShatteredPixelDungeon.switchScene(HeroSelectScene.class);
+                }
+                check++;
             }
 
         };
@@ -123,22 +167,151 @@ public class StoryScene extends PixelScene{
             protected void onClick() {
                 super.onClick();
                 textBtn.alpha(0.5f);
-                choiceBtn1.visible = true;
-                choiceBtn2.visible = true;
+                if (check == 0) {
+                    choiceBtn1.visible = true;
+                    choiceBtn2.visible = true;
+                }
+                else if (check == 1) {
+                    choiceBtn1.visible = true;
+                    choiceBtn1.text("나기사의 바람대로 의자에 앉았다.");
+                }
+                else if (check == 2) {
+                    choiceBtn1.visible = true;
+                    choiceBtn1.text("홍차로 부탁해.");
+                }
+                else if (check == 3) {
+                    StoryScene.this.text.visible = false;
+                    StoryScene.this.charaName.visible = false;
+                    StoryScene.this.charaDesc.visible = false;
+                    eden = new Image(Assets.Background.EDEN_1);
+                    eden.scale.set(Camera.main.width/eden.width, Camera.main.height/eden.height);
+                    eden.x = (Camera.main.width - background.width())/2f;
+                    eden.y = (Camera.main.height - background.height())/2f;
+                    PixelScene.align(eden);
+                    add(eden);
+                    check++;
+                    fadeIn();
+                }
+                else if (check == 4) {
+                    eden.visible = false;
+                    eden = new Image(Assets.Background.EDEN_2);
+                    eden.scale.set(Camera.main.width/eden.width, Camera.main.height/eden.height);
+                    eden.x = (Camera.main.width - background.width())/2f;
+                    eden.y = (Camera.main.height - background.height())/2f;
+                    PixelScene.align(eden);
+                    add(eden);
+                    check++;
+                    fadeIn();
+                }
+                else if (check == 5) {
+                    eden.visible = false;
+                    eden = new Image(Assets.Background.EDEN_3);
+                    eden.scale.set(Camera.main.width/eden.width, Camera.main.height/eden.height);
+                    eden.x = (Camera.main.width - background.width())/2f;
+                    eden.y = (Camera.main.height - background.height())/2f;
+                    PixelScene.align(eden);
+                    add(eden);
+                    check++;
+                    fadeIn();
+                }
+                else if (check == 6) {
+                    eden.visible = false;
+                    eden = new Image(Assets.Background.EDEN_4);
+                    eden.scale.set(Camera.main.width/eden.width, Camera.main.height/eden.height);
+                    eden.x = (Camera.main.width - background.width())/2f;
+                    eden.y = (Camera.main.height - background.height())/2f;
+                    PixelScene.align(eden);
+                    add(eden);
+                    check++;
+                    fadeIn();
+                }
+                else if (check == 7) {
+                    eden.visible = false;
+                    eden = new Image(Assets.Background.EDEN_5);
+                    eden.scale.set(Camera.main.width/eden.width, Camera.main.height/eden.height);
+                    eden.x = (Camera.main.width - background.width())/2f;
+                    eden.y = (Camera.main.height - background.height())/2f;
+                    PixelScene.align(eden);
+                    add(eden);
+                    check++;
+                    fadeIn();
+                }
+                else if (check == 8) {
+                    eden.visible = false;
+                    eden = new Image(Assets.Background.EDEN_6);
+                    eden.scale.set(Camera.main.width/eden.width, Camera.main.height/eden.height);
+                    eden.x = (Camera.main.width - background.width())/2f;
+                    eden.y = (Camera.main.height - background.height())/2f;
+                    PixelScene.align(eden);
+                    add(eden);
+                    check++;
+                    fadeIn();
+                }
+                else if (check == 9) {
+                    eden.visible = false;
+                    eden = new Image(Assets.Background.EDEN_7);
+                    eden.scale.set(Camera.main.width/eden.width, Camera.main.height/eden.height);
+                    eden.x = (Camera.main.width - background.width())/2f;
+                    eden.y = (Camera.main.height - background.height())/2f;
+                    PixelScene.align(eden);
+                    add(eden);
+                    check++;
+                    fadeIn();
+                } else if (check == 10) {
+                    eden.visible = false;
+                    eden = new Image(Assets.Background.EDEN_8);
+                    eden.scale.set(Camera.main.width/eden.width, Camera.main.height/eden.height);
+                    eden.x = (Camera.main.width - background.width())/2f;
+                    eden.y = (Camera.main.height - background.height())/2f;
+                    PixelScene.align(eden);
+                    add(eden);
+                    check++;
+                    fadeIn();
+                } else if (check == 11) {
+                    eden.visible = false;
+                    eden = new Image(Assets.Background.EDEN_11);
+                    eden.scale.set(Camera.main.width/eden.width, Camera.main.height/eden.height);
+                    eden.x = (Camera.main.width - background.width())/2f;
+                    eden.y = (Camera.main.height - background.height())/2f;
+                    PixelScene.align(eden);
+                    add(eden);
+                    check++;
+                    fadeIn();
+                } else if (check == 12) {
+                    eden.visible = false;
+                    eden = new Image(Assets.Background.EDEN_12);
+                    eden.scale.set(Camera.main.width/eden.width, Camera.main.height/eden.height);
+                    eden.x = (Camera.main.width - background.width())/2f;
+                    eden.y = (Camera.main.height - background.height())/2f;
+                    PixelScene.align(eden);
+                    add(eden);
+                    check++;
+                    fadeIn();
+                } else if (check == 13) {
+                    eden.visible = false;
+                    StoryScene.this.text.visible = true;
+                    StoryScene.this.charaName.visible = true;
+                    StoryScene.this.charaDesc.visible = true;
+                    choiceBtn1.visible = true;
+                    choiceBtn1.text("괜찮아, 나기사?");
+                } else if (check == 14) {
+                    choiceBtn1.visible = true;
+                    choiceBtn1.text("카타콤?");
+                } else if (check == 15) {
+                    choiceBtn1.visible = true;
+                    choiceBtn1.text("그런 부탁이라면 언제나 환영이야.");
+                    choiceBtn2.visible = true;
+                    choiceBtn2.text("학생들의 안전을 위해서라면 당연히 들어줘야지.");
+                }
+                else if (check == 16) {
+                    ShatteredPixelDungeon.switchScene(HeroSelectScene.class);
+                }
+
             }
         };
         textBtn.setPos(Camera.main.width / 2f - 100, Camera.main.height / 2f - 300);
         textBtn.alpha(0.5f);
         add(textBtn);
-        fadeLeft = new Image(TextureCache.createGradient(0xFF000000, 0xFF000000, 0x00000000));
-        fadeLeft.x = textBtn.width()-2;
-        fadeLeft.scale.set(3, textBtn.height());
-        add(fadeLeft);
-
-        fadeRight = new Image(fadeLeft);
-        fadeRight.y = 50 + textBtn.height();
-        fadeRight.angle = 180;
-        add(fadeRight);
 
         text = renderTextBlock("어서오세요, 선생님", 8);
         text.setPos(Camera.main.width / 2f - 157, Camera.main.height / 2f + 55);
@@ -167,7 +340,6 @@ public class StoryScene extends PixelScene{
         btnExit.setPos( Camera.main.width - btnExit.width(), 0 );
         add( btnExit );
         btnExit.visible = btnExit.active = !SPDSettings.intro();
-
         fadeIn();
 
     }

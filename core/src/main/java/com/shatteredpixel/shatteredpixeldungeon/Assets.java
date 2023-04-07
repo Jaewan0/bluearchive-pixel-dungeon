@@ -139,6 +139,7 @@ public class Assets {
 		public static final String HALLS_BOSS   = "music/halls_boss.ogg";
 		public static final String MX_AD = "music/Theme-16_Mitsukiyo-10_MX-Adventure-_-1dB_.ogg";
 		public static final String PAP = "music/Theme-28_KARUT-11_Plug-and-Play-_-1dB_.ogg";
+		public static final String THEME_105 = "music/Theme_105.ogg";
 	}
 
 	public static class Sounds {
@@ -309,6 +310,20 @@ public class Assets {
 		public static final String ARIUS_BASILICA = "background/BG_AriusBasilica.jpg";
 		public static final String ARIUS_CAMPUS = "background/BG_AriusCampus.jpg";
 		public static final String TRINITY_TERRACE = "background/BG_TrinityTerrace.jpg";
+		public static final String EDEN_1 = "background/eden1.jpg";
+		public static final String EDEN_2 = "background/eden2.jpg";
+		public static final String EDEN_3 = "background/eden3.jpg";
+		public static final String EDEN_4 = "background/eden4.jpg";
+		public static final String EDEN_5 = "background/eden5.jpg";
+		public static final String EDEN_6 = "background/eden6.jpg";
+		public static final String EDEN_7 = "background/eden7.jpg";
+		public static final String EDEN_8 = "background/eden8.jpg";
+		public static final String EDEN_9 = "background/eden9.jpg";
+		public static final String EDEN_10 = "background/eden10.jpg";
+		public static final String EDEN_11 = "background/eden11.jpg";
+		public static final String EDEN_12 = "background/eden12.jpg";
+		public static final String EDEN_13 = "background/eden13.jpg";
+
 	}
 
 	public static class Character {
